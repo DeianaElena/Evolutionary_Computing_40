@@ -13,21 +13,22 @@ OUTPUTS=5
 
 POP_SIZE=10
 
-total_weights = INPUTS * NEURONS + NEURONS + NEURONS * OUTPUTS
+total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * (OUTPUTS)
 
 class group40Controller(Controller):
 
     def __init__(self, weights):
         self.input = np.reshape(weights[0:INPUTS * NEURONS], (INPUTS, NEURONS))
         self.bias = np.reshape(weights[INPUTS * NEURONS: INPUTS * NEURONS + NEURONS], (NEURONS,))
-        self.output = np.reshape(weights[INPUTS * NEURONS + NEURONS:], (NEURONS, OUTPUTS))
+        self.output = np.reshape(weights[INPUTS * NEURONS + NEURONS:total_weights - OUTPUTS], (NEURONS, OUTPUTS))
+        self.bias2 = np.reshape(weights[total_weights - OUTPUTS:], (OUTPUTS,))
 
     def control(self, params, cont):
         first = (params @ self.input) + self.bias
 
         activate = 1 / (1 + np.exp(-first))
 
-        output = activate @ self.output
+        output = activate @ self.output + self.bias2
 
         output_activation = 1 / (1 + np.exp(-output))
 
