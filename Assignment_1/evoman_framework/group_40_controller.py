@@ -24,7 +24,9 @@ class group40Controller(Controller):
         self.bias2 = np.reshape(weights[total_weights - OUTPUTS:], (OUTPUTS,))
 
     def control(self, params, cont):
-        first = (params @ self.input) + self.bias
+        normal = (params - np.min(params)) / (np.max(params) - np.min(params))
+        
+        first = (normal @ self.input) + self.bias
 
         activate = 1 / (1 + np.exp(-first))
 

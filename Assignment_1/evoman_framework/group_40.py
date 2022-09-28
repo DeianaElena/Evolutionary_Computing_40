@@ -38,14 +38,14 @@ def genInd(ind_cls, strat_cls, total_weights, scale):
 
 toolbox = base.Toolbox()
 
-toolbox.register("individual", genInd, creator.Individual, creator.Strategy, total_weights, 5)
+toolbox.register("individual", genInd, creator.Individual, creator.Strategy, total_weights, 1)
 
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 def evaluate(ind):
     env = Environment(
         experiment_name=experiment_name,
-        enemies=[1],
+        enemies=[8],
         level=2,
         playermode="ai",
         player_controller=group40Controller(ind),
