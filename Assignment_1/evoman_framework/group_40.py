@@ -45,7 +45,7 @@ toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 def evaluate(ind):
     env = Environment(
         experiment_name=experiment_name,
-        enemies=[2, 5, 8],
+        enemies=[1],
         level=2,
         playermode="ai",
         player_controller=group40Controller(ind),

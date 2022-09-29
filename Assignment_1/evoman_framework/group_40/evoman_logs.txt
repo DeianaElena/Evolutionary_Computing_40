@@ -2,6 +2,4 @@
 
 MESSAGE: Pygame initialized for simulation.
 
-MESSAGE: there is more than one enemy in 'enemies' list although the mode is not multiple.
-
-RUN: run status: enemy: 2; fitness: 91.77237888630937; player life: 74; enemy life: 0; time: 278
+RUN: run status: enemy: 1; fitness: 21.12506926914797; player life: 0; enemy life: 70.0; time: 356
