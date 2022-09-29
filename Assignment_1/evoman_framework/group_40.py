@@ -45,12 +45,13 @@ toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 def evaluate(ind):
     env = Environment(
         experiment_name=experiment_name,
-        enemies=[8],
+        enemies=[2, 5, 8],
         level=2,
         playermode="ai",
         player_controller=group40Controller(ind),
         enemymode="static",
         speed="fastest"
+
     )
     env.play()
     return (env.fitness_single(),)
