@@ -1,7 +1,7 @@
 from deap import base, creator, tools, algorithms
 
 import numpy as np
-
+import pandas as pd
 import sys, os
 
 from group_40_controller import group40Controller
@@ -75,3 +75,6 @@ pop = toolbox.population(n=POP_SIZE)
 
 pop, logbook = algorithms.eaMuCommaLambda(pop, toolbox, mu=POP_SIZE, lambda_=10,
             cxpb=0.4, mutpb=0.5, ngen=100, stats=stats, verbose=True)
+
+df_log = pd.DataFrame(logbook)
+df_log.to_csv('results_tournament_selection/test.csv', index=False)
