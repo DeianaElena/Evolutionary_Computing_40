@@ -61,7 +61,7 @@ toolbox.register("evaluate", evaluate)
 
 toolbox.register("mate", tools.cxESBlend, alpha=0.1)
 toolbox.register("mutate", tools.mutGaussian, mu=0, sigma=1, indpb=0.3)
-toolbox.register("select", tools.selTournament, tournsize=2)
+toolbox.register("select", tools.selTournament, tournsize=2) #tournament selection
 
 stats = tools.Statistics(lambda ind: ind.fitness.values)
 stats.register("avg", np.mean)
