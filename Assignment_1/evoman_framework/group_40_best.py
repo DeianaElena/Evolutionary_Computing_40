@@ -79,7 +79,7 @@ for i in range(1, 11):
     pop = toolbox.population(n=POP_SIZE)
 
     pop, logbook = algorithms.eaMuCommaLambda(pop, toolbox, mu=POP_SIZE, lambda_=7, halloffame=hof,
-                cxpb=0.4, mutpb=0.5, ngen=2, stats=stats, verbose=True)
+                cxpb=0.4, mutpb=0.5, ngen=30, stats=stats, verbose=True)
     tot = 0
     for j in range(5):
         for ind in hof:
