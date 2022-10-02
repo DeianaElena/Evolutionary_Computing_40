@@ -26,7 +26,9 @@ INPUTS=20
 
 OUTPUTS=5
 
-POP_SIZE=7
+POP_SIZE=3
+
+ENEMY=5
 
 total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * OUTPUTS
 
@@ -45,7 +47,7 @@ toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 def evaluate(ind):
     env = Environment(
         experiment_name=experiment_name,
-        enemies=[1],
+        enemies=[ENEMY],
         level=2,
         playermode="ai",
         player_controller=group40Controller(ind),
@@ -68,12 +70,28 @@ stats.register("std", np.std)
 stats.register("min", np.min)
 stats.register("max", np.max)
 
-hof = tools.HallOfFame(1)
+hof = tools.HallOfFame(1, similar=np.array_equal)
 
-pop = toolbox.population(n=POP_SIZE)
+best_runs = []
 
-pop, logbook = algorithms.eaMuCommaLambda(pop, toolbox, mu=POP_SIZE, lambda_=28,
-            cxpb=0.4, mutpb=0.5, ngen=100, stats=stats, verbose=True)
+for i in range(1, 11):
 
-df_log = pd.DataFrame(logbook)
-df_log.to_csv('results_best_selection/test.csv', index=False)
+    pop = toolbox.population(n=POP_SIZE)
+
+    pop, logbook = algorithms.eaMuCommaLambda(pop, toolbox, mu=POP_SIZE, lambda_=7, halloffame=hof,
+                cxpb=0.4, mutpb=0.5, ngen=2, stats=stats, verbose=True)
+    tot = 0
+    for j in range(5):
+        for ind in hof:
+            tot += evaluate(ind)[0] / 5
+
+    print("BEST", j, tot)
+    best_runs.append(tot)
+
+
+    df_log = pd.DataFrame(logbook)
+    df_log.to_csv(f'results_best_selection/test{ENEMY}{i}.csv', index=False)
+
+best_log = pd.DataFrame()
+best_log["best"] = best_runs
+best_log.to_csv(f'results_best_selection/best_results_{ENEMY}.csv', index=False)
