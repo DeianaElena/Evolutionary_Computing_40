@@ -80,7 +80,7 @@ print(df_product_final_std)
 fig, ax = plt.subplots()
 line1, = ax.plot(df_product_final.gen, df_product_final.avg, label='MEAN OF MEANS', marker = '.')
 ax.fill_between(df_product_final.gen, (df_product_final.avg-df_product_final['std']), (df_product_final.avg+df_product_final['std']), color='blue', alpha=.1)
-line2, = ax.plot(df_product_final.gen, df_product_final.max1, label='MEAN OF MEANS', marker='.')
+line2, = ax.plot(df_product_final.gen, df_product_final.max1, label='MEAN OF MAXES', marker='.')
 ax.fill_between(df_product_final.gen, (df_product_final_std.max1-df_product_final_std['max_std']), (df_product_final.max1+df_product_final_std['max_std']), color='orange', alpha=.1)
 ax.set(xlabel='GENERATION', ylabel='AVERAGE FITNESS',
        title='BEST SELECTION ALGORITHM - ENEMY 1')
