@@ -66,19 +66,22 @@ df_product9 = pd.read_csv("results_best_selection/test110.csv", usecols=columns,
 df_product_final = (pd.concat([df_product, df_product1, df_product2, df_product3, df_product4, df_product5, df_product6, df_product7, df_product8, df_product9]).groupby('gen', as_index=False).
                       agg({"avg": "mean", "std": "mean", "max": "mean"}))
 
+df_product_final_std = (pd.concat([df_product, df_product1, df_product2, df_product3, df_product4, df_product5, df_product6, df_product7, df_product8, df_product9]).groupby('gen', as_index=False).
+                      agg({"max": "mean"}))
+
 df_product_final["std1"] = df_product_final["std"]
 df_product_final["max1"] = df_product_final["max"] #changed this because pandas reads "max" as a command
 
-df_product_final_std = (pd.concat([df_product, df_product1, df_product2, df_product3, df_product4, df_product5, df_product6, df_product7, df_product8, df_product9]).groupby('gen', as_index=False).
-                      agg({"max": "std"}))
+df_product_final_std["max_std"] = df_product_final_std.std(axis=1)
+df_product_final_std["max1"] = df_product_final_std["max"] #changed this because pandas reads "max" as a command
 
-print(df_product_final_std["max"])
+print(df_product_final_std)
 
 fig, ax = plt.subplots()
-line1, = ax.plot(df_product_final.gen, df_product_final.avg, label='MEAN OF MEANS')
+line1, = ax.plot(df_product_final.gen, df_product_final.avg, label='MEAN OF MEANS', marker = '.')
 ax.fill_between(df_product_final.gen, (df_product_final.avg-df_product_final['std']), (df_product_final.avg+df_product_final['std']), color='blue', alpha=.1)
-line2, = ax.plot(df_product_final.gen, df_product_final.max1, label='MEAN OF MAXES')
-#ax.fill_between(df_product_final.gen, (df_product_final.avg-df_product_final['max_std']), (df_product_final.avg+df_product_final['max_std']), color='orange', alpha=.1)
+line2, = ax.plot(df_product_final.gen, df_product_final.max1, label='MEAN OF MEANS', marker='.')
+ax.fill_between(df_product_final.gen, (df_product_final_std.max1-df_product_final_std['max_std']), (df_product_final.max1+df_product_final_std['max_std']), color='orange', alpha=.1)
 ax.set(xlabel='GENERATION', ylabel='AVERAGE FITNESS',
        title='BEST SELECTION ALGORITHM - ENEMY 1')
 
@@ -92,6 +95,4 @@ ax.grid()
 ax.legend()
 plt.show()
 #plt.savefig('Best_selection_fitness_enemy_1.png')
-
-
 # %%
