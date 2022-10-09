@@ -29,9 +29,10 @@ INPUTS=20
 
 OUTPUTS=5
 
-POP_SIZE=100
+POP_SIZE=50              #manually change this
+LAMBDA = 100             #manually change this
 
-N_GEN = 20
+N_GEN = 20              #manually change this
 
 #testing enemies:
 g1 = [1,5,7]            #each with different action number
@@ -47,7 +48,7 @@ g10 = [4,6]             #action 4 and action 3
 g11 = [3,5]             #action 4 and action 3
 g12 = [3,4,6]           #two of action 4 and one action 3
 
-ENEMY=g1    #manually change this
+ENEMY=g1                #manually change this
 
 total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * OUTPUTS
 
@@ -98,7 +99,7 @@ for i in range(1, 11):
 
     pop = toolbox.population(n=POP_SIZE)
 
-    pop, logbook = algorithms.eaMuCommaLambda(pop, toolbox, mu=POP_SIZE, lambda_=100, halloffame=hof,
+    pop, logbook = algorithms.eaMuCommaLambda(pop, toolbox, mu=POP_SIZE, lambda_=LAMBDA, halloffame=hof,
                 cxpb=0.4, mutpb=0.5, ngen=N_GEN, stats=stats, verbose=True)
     tot = 0
     for j in range(5):
@@ -125,10 +126,11 @@ print( '\nExecution time: '+ ex_time +' minutes \n')
 
 #add info of experiment in a csv file with some details
 run_data = {'Ending local time' : end_local_time,
-            'Runtime:' : ex_time,
-            'N_generations:' : N_GEN,
-            'Pop_size:' : POP_SIZE,
-            'Enemy:': [ENEMY]
+            'Runtime' : ex_time,
+            'N_generations' : N_GEN,
+            'Pop_size' : POP_SIZE,
+            'Enemy': [ENEMY],
+            'Lambda': LAMBDA
             }
 
 df_runtime= pd.DataFrame(run_data)

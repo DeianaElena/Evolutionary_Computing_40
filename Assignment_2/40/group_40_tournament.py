@@ -33,6 +33,7 @@ OUTPUTS=5
 #editable parameters
 
 POP_SIZE=3
+LAMBDA = 6
 
 N_GEN = 20 
 
@@ -49,7 +50,7 @@ g9 = [5,8]              #action 3 and action 6
 g10 = [4,6]             #action 4 and action 3
 g11 = [3,5]             #action 4 and action 3
 
-ENEMY=g5         #manually change this
+ENEMY=g1         #manually change this
 
 total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * OUTPUTS
 
@@ -100,7 +101,7 @@ for i in range(1, 11):
 
     pop = toolbox.population(n=POP_SIZE)
 
-    pop, logbook = algorithms.eaMuPlusLambda(pop, toolbox, mu=POP_SIZE, lambda_=7, halloffame=hof,
+    pop, logbook = algorithms.eaMuPlusLambda(pop, toolbox, mu=POP_SIZE, lambda_=LAMBDA, halloffame=hof,
                 cxpb=0.4, mutpb=0.5, ngen=N_GEN, stats=stats, verbose=True)
     tot = 0
     for j in range(5):
