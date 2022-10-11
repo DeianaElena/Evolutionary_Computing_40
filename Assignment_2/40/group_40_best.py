@@ -29,10 +29,10 @@ INPUTS=20
 
 OUTPUTS=5
 
-POP_SIZE=50              #manually change this
-LAMBDA = 100             #manually change this
+POP_SIZE=3             #manually change this
+LAMBDA = 20             #manually change this
 
-N_GEN = 20              #manually change this
+N_GEN = 5              #manually change this
 
 #testing enemies:
 g1 = [1,5,7]            #each with different action number
@@ -48,7 +48,7 @@ g10 = [4,6]             #action 4 and action 3
 g11 = [3,5]             #action 4 and action 3
 g12 = [3,4,6]           #two of action 4 and one action 3
 
-ENEMY=g1                #manually change this
+ENEMY=g6                #manually change this
 
 total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * OUTPUTS
 
@@ -75,8 +75,8 @@ def evaluate(ind):
         speed="fastest",
         multiplemode="yes"
     )
-    env.play()
-    return (env.fitness_single(),)
+    results = env.play()
+    return (results[0],)
 
 
 toolbox.register("evaluate", evaluate)
@@ -135,6 +135,3 @@ run_data = {'Ending local time' : end_local_time,
 
 df_runtime= pd.DataFrame(run_data)
 df_runtime.to_csv(f'results_best_selection/runtime.csv', sep = '|', mode='a', index=False, header=False)   #appending data every time we run an experiment to keep track of enemies and runtime
-
-
-

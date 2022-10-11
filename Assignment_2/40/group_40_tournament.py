@@ -35,7 +35,7 @@ OUTPUTS=5
 POP_SIZE=3
 LAMBDA = 6
 
-N_GEN = 20 
+N_GEN = 20
 
 #testing enemies:
 g1 = [1,5,7]            #each with different action number
@@ -77,8 +77,8 @@ def evaluate(ind):
         speed="fastest",
         multiplemode="yes"
     )
-    env.play()
-    return (env.fitness_single(),)
+    results = env.play()
+    return (results[0],)
 
 
 toolbox.register("evaluate", evaluate)
