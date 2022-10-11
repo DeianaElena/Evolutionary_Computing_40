@@ -80,6 +80,24 @@ def evaluate(ind):
     results = env.play()
     return (results[0],)
 
+def final_evaluate(ind):
+    out_arr = []
+    for i in range(10):
+        out_arr.append({})
+        for enemy in range(1, 9):
+            env = Environment(
+                experiment_name=experiment_name,
+                enemies=[enemy],
+                level=2,
+                playermode="ai",
+                player_controller=group40Controller(ind),
+                enemymode="static",
+                speed="fastest"
+            )
+            results = env.play()
+            out_arr[-1][enemy] = results[0]
+    return out_arr
+
 
 toolbox.register("evaluate", evaluate)
 
@@ -97,16 +115,26 @@ hof = tools.HallOfFame(1, similar=np.array_equal)
 
 best_runs = []
 
+best_fitness = -1000
+best_ind = None
+
 for i in range(1, 11):
 
     pop = toolbox.population(n=POP_SIZE)
 
     pop, logbook = algorithms.eaMuPlusLambda(pop, toolbox, mu=POP_SIZE, lambda_=LAMBDA, halloffame=hof,
                 cxpb=0.4, mutpb=0.5, ngen=N_GEN, stats=stats, verbose=True)
+
+
+    for ind in hof:
+        current_ind = ind
     tot = 0
     for j in range(5):
-        for ind in hof:
-            tot += evaluate(ind)[0] / 5
+        tot += evaluate(current_ind)[0] / 5
+
+    if tot > best_fitness:
+        best_fitness = tot
+        best_ind = current_ind
 
     print("BEST", j, tot)
     best_runs.append(tot)
@@ -118,6 +146,12 @@ for i in range(1, 11):
 best_log = pd.DataFrame()
 best_log["best"] = best_runs
 best_log.to_csv(f'results_tournament_selection/best_results_{ENEMY}.csv', index=False)
+
+out = final_evaluate(best_ind)
+out_df = pd.DataFrame(out)
+out_df.to_csv(f'results_tournament_selection/test{ENEMY}_final_results.csv', index=False)
+
+np.savetxt(f'results_tournament_selection/test{ENEMY}_best_weights.txt', best_ind)
 
 
 

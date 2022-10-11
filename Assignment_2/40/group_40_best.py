@@ -32,7 +32,7 @@ OUTPUTS=5
 POP_SIZE=3             #manually change this
 LAMBDA = 20             #manually change this
 
-N_GEN = 5              #manually change this
+N_GEN = 5             #manually change this
 
 #testing enemies:
 g1 = [1,5,7]            #each with different action number
@@ -47,8 +47,9 @@ g9 = [5,8]              #action 3 and action 6
 g10 = [4,6]             #action 4 and action 3
 g11 = [3,5]             #action 4 and action 3
 g12 = [3,4,6]           #two of action 4 and one action 3
+g13=[1,2,3,4,5,6,7,8]
 
-ENEMY=g6                #manually change this
+ENEMY=g1               #manually change this
 
 total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * OUTPUTS
 
@@ -78,6 +79,25 @@ def evaluate(ind):
     results = env.play()
     return (results[0],)
 
+def final_evaluate(ind):
+    out_arr = []
+    for i in range(10):
+        out_arr.append({})
+        for enemy in range(1, 9):
+            env = Environment(
+                experiment_name=experiment_name,
+                enemies=[enemy],
+                level=2,
+                playermode="ai",
+                player_controller=group40Controller(ind),
+                enemymode="static",
+                speed="fastest"
+            )
+            results = env.play()
+            out_arr[-1][enemy] = results[0]
+    return out_arr
+
+
 
 toolbox.register("evaluate", evaluate)
 
@@ -95,16 +115,28 @@ hof = tools.HallOfFame(1, similar=np.array_equal)
 
 best_runs = []
 
+best_fitness = -1000
+best_ind = None
+
 for i in range(1, 11):
 
     pop = toolbox.population(n=POP_SIZE)
 
     pop, logbook = algorithms.eaMuCommaLambda(pop, toolbox, mu=POP_SIZE, lambda_=LAMBDA, halloffame=hof,
                 cxpb=0.4, mutpb=0.5, ngen=N_GEN, stats=stats, verbose=True)
+
+    current_ind = None
+
+    # theres only 1 and this is an easy way to access it
+    for ind in hof:
+        current_ind = ind
     tot = 0
     for j in range(5):
-        for ind in hof:
-            tot += evaluate(ind)[0] / 5
+        tot += evaluate(current_ind)[0] / 5
+
+    if tot > best_fitness:
+        best_fitness = tot
+        best_ind = current_ind
 
     print("BEST", j, tot)
     best_runs.append(tot)
@@ -116,6 +148,12 @@ for i in range(1, 11):
 best_log = pd.DataFrame()
 best_log["best"] = best_runs
 best_log.to_csv(f'results_best_selection/best_results_{ENEMY}.csv', index=False)
+
+out = final_evaluate(best_ind)
+out_df = pd.DataFrame(out)
+out_df.to_csv(f'results_best_selection/test{ENEMY}_final_results.csv', index=False)
+
+np.savetxt(f'results_best_selection/test{ENEMY}_best_weights.txt', best_ind)
 
 
 #### experiment runtime
