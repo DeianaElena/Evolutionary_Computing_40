@@ -32,8 +32,8 @@ OUTPUTS=5
 
 #editable parameters
 
-POP_SIZE=3
-LAMBDA = 6
+POP_SIZE=5
+LAMBDA = 35
 
 N_GEN = 20
 
@@ -62,7 +62,7 @@ def genInd(ind_cls, strat_cls, total_weights, scale):
 
 toolbox = base.Toolbox()
 
-toolbox.register("individual", genInd, creator.Individual, creator.Strategy, total_weights, 5)
+toolbox.register("individual", genInd, creator.Individual, creator.Strategy, total_weights, 20)
 
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
@@ -102,7 +102,7 @@ def final_evaluate(ind):
 toolbox.register("evaluate", evaluate)
 
 toolbox.register("mate", tools.cxESBlend, alpha=0.1)
-toolbox.register("mutate", tools.mutGaussian, mu=0, sigma=1, indpb=0.3)
+toolbox.register("mutate", tools.mutGaussian, mu=0, sigma=1, indpb=0.5)
 toolbox.register("select", tools.selTournament, tournsize=4) #tournament selection
 
 stats = tools.Statistics(lambda ind: ind.fitness.values)

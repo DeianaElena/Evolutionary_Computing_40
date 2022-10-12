@@ -18,14 +18,18 @@ total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * (OUTPUTS)
 class group40Controller(Controller):
 
     def __init__(self, weights):
-        self.input = np.reshape(weights[0:INPUTS * NEURONS], (INPUTS, NEURONS))
-        self.bias = np.reshape(weights[INPUTS * NEURONS: INPUTS * NEURONS + NEURONS], (NEURONS,))
-        self.output = np.reshape(weights[INPUTS * NEURONS + NEURONS:total_weights - OUTPUTS], (NEURONS, OUTPUTS))
-        self.bias2 = np.reshape(weights[total_weights - OUTPUTS:], (OUTPUTS,))
+        self.bias = np.reshape(weights[0:NEURONS], (NEURONS,))
+
+        self.input = np.reshape(weights[NEURONS:INPUTS * NEURONS + NEURONS], (INPUTS, NEURONS))
+
+        #self.bias = np.reshape(weights[INPUTS * NEURONS: INPUTS * NEURONS + NEURONS], (NEURONS,))
+        self.bias2 = np.reshape(weights[INPUTS * NEURONS + NEURONS: INPUTS * NEURONS + NEURONS + OUTPUTS], (OUTPUTS,))
+        self.output = np.reshape(weights[INPUTS * NEURONS + NEURONS + OUTPUTS:], (NEURONS, OUTPUTS))
+
 
     def control(self, params, cont):
         normal = (params - np.min(params)) / (np.max(params) - np.min(params))
-        
+
         first = (normal @ self.input) + self.bias
 
         activate = 1 / (1 + np.exp(-first))
@@ -34,4 +38,4 @@ class group40Controller(Controller):
 
         output_activation = 1 / (1 + np.exp(-output))
 
-        return output > 0.5
+        return output_activation > 0.5
