@@ -29,10 +29,10 @@ INPUTS=20
 
 OUTPUTS=5
 
-POP_SIZE=3             #manually change this
-LAMBDA = 20             #manually change this
+POP_SIZE=50             #manually change this
+LAMBDA = 65             #manually change this
 
-N_GEN = 5             #manually change this
+N_GEN = 15             #manually change this
 
 #testing enemies:
 g1 = [1,5,7]            #each with different action number

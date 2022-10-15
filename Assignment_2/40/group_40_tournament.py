@@ -51,7 +51,7 @@ g11 = [3, 5]  # action 4 and action 3
 g12 = [3,4,6]           #two of action 4 and one action 3
 g13=[1,2,3,4,5,6,7,8]   #all enemies
 
-ENEMY = g8  # manually change this
+ENEMY = g1  # manually change this
 
 total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * OUTPUTS
 
