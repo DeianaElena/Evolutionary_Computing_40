@@ -31,8 +31,13 @@ OUTPUTS = 5
 
 # editable parameters
 
+<<<<<<< Updated upstream
 POP_SIZE = 50
 LAMBDA = 65
+=======
+POP_SIZE=7
+LAMBDA = 50
+>>>>>>> Stashed changes
 
 N_GEN = 15
 
@@ -51,7 +56,11 @@ g11 = [3, 5]  # action 4 and action 3
 g12 = [3,4,6]           #two of action 4 and one action 3
 g13=[1,2,3,4,5,6,7,8]   #all enemies
 
+<<<<<<< Updated upstream
 ENEMY = g1  # manually change this
+=======
+ENEMY=g2         #manually change this
+>>>>>>> Stashed changes
 
 total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * OUTPUTS
 
