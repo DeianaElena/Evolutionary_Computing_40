@@ -10,9 +10,9 @@ import os
 
 columns = ["gen", "nevals", "avg", "std", "min", "max"]
 
-ENEMY=[6,7]         
+ENEMY=[7,8]         
 
-FOLDER = 'pop50_lam65_gen15'   #or Elena_tests'  #ADD NAME OF PATH/FOLDER MANUALLY
+FOLDER = 'pop25_lam150_gen30_78_BEST'   #or Elena_tests'  #ADD NAME OF PATH/FOLDER MANUALLY
 
 df_product = pd.read_csv(f"results_tournament_selection/{FOLDER}/test{ENEMY}1.csv", usecols=columns, index_col=None)
 df_product1 = pd.read_csv(f"results_tournament_selection/{FOLDER}/test{ENEMY}2.csv", usecols=columns, index_col=None)
