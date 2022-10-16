@@ -31,8 +31,8 @@ OUTPUTS = 5
 
 # editable parameters
 
-CXPB = 0.4
-MUTPB = 0.5
+POP_SIZE = 50
+LAMBDA = 65
 
 POP_SIZE = 40
 LAMBDA = 160
@@ -53,7 +53,7 @@ g11 = [3, 5]  # action 4 and action 3
 g12 = [3,4,6]           #two of action 4 and one action 3
 g13=[1,2,3,4,5,6,7,8]   #all enemies
 
-ENEMY = g10  # manually change this
+ENEMY = g1  # manually change this
 
 total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * OUTPUTS
 
