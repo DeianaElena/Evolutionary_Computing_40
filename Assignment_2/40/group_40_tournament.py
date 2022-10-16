@@ -31,10 +31,12 @@ OUTPUTS = 5
 
 # editable parameters
 
-POP_SIZE = 50
-LAMBDA = 65
+CXPB = 0.4
+MUTPB = 0.5
 
-N_GEN = 15
+POP_SIZE = 40
+LAMBDA = 160
+N_GEN = 30
 
 # testing enemies:
 g1 = [1, 5, 7]  # each with different action number
@@ -51,7 +53,7 @@ g11 = [3, 5]  # action 4 and action 3
 g12 = [3,4,6]           #two of action 4 and one action 3
 g13=[1,2,3,4,5,6,7,8]   #all enemies
 
-ENEMY = g1  # manually change this
+ENEMY = g10  # manually change this
 
 total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * OUTPUTS
 
@@ -127,7 +129,7 @@ for i in range(1, 11):
     pop = toolbox.population(n=POP_SIZE)
 
     pop, logbook = algorithms.eaMuPlusLambda(pop, toolbox, mu=POP_SIZE, lambda_=LAMBDA, halloffame=hof,
-                                             cxpb=0.4, mutpb=0.5, ngen=N_GEN, stats=stats, verbose=True)
+                                             cxpb=CXPB, mutpb=MUTPB, ngen=N_GEN, stats=stats, verbose=True)
 
     for ind in hof:
         current_ind = ind

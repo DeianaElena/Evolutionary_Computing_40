@@ -15,8 +15,8 @@ import os
 
 columns = ["gen", "nevals", "avg", "std", "min", "max"]
 #define enemy
-ENEMY=[6,7]
-FOLDER = 'Nikita_results/pop50_lam65_gen15_ememy67'   #or 'Elena_tests'    #ADD NAME OF PATH/FOLDER MANUALLY
+ENEMY=[7,8]
+FOLDER = 'Elena_tests'   #or 'Elena_tests'    #ADD NAME OF PATH/FOLDER MANUALLY
 
 df_product = pd.read_csv(f"results_best_selection/{FOLDER}/test{ENEMY}1.csv", usecols=columns, index_col=None)
 df_product1 = pd.read_csv(f"results_best_selection/{FOLDER}/test{ENEMY}2.csv", usecols=columns, index_col=None)

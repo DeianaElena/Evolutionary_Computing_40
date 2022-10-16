@@ -29,10 +29,13 @@ INPUTS=20
 
 OUTPUTS=5
 
-POP_SIZE=50             #manually change this
-LAMBDA = 65             #manually change this
+CXPB = 0.4          #changed from 0.4
+MUTPB = 0.5         #changed form 0.5
 
-N_GEN = 15             #manually change this
+
+POP_SIZE=25             #manually change this
+LAMBDA = 150             #manually change this
+N_GEN = 30             #manually change this
 
 #testing enemies:
 g1 = [1,5,7]            #each with different action number
@@ -49,7 +52,7 @@ g11 = [3,5]             #action 4 and action 3
 g12 = [3,4,6]           #two of action 4 and one action 3
 g13=[1,2,3,4,5,6,7,8]
 
-ENEMY=g1               #manually change this
+ENEMY=g5               #manually change this
 
 total_weights = (INPUTS + 1) * NEURONS + (NEURONS + 1) * OUTPUTS
 
@@ -123,7 +126,7 @@ for i in range(1, 11):
     pop = toolbox.population(n=POP_SIZE)
 
     pop, logbook = algorithms.eaMuCommaLambda(pop, toolbox, mu=POP_SIZE, lambda_=LAMBDA, halloffame=hof,
-                cxpb=0.4, mutpb=0.5, ngen=N_GEN, stats=stats, verbose=True)
+                cxpb=CXPB, mutpb=MUTPB, ngen=N_GEN, stats=stats, verbose=True)
 
     current_ind = None
 
