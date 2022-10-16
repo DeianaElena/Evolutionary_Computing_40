@@ -29,8 +29,8 @@ INPUTS=20
 
 OUTPUTS=5
 
-CXPB = 0.4          #changed from 0.4
-MUTPB = 0.5         #changed form 0.5
+CXPB = 0.4         
+MUTPB = 0.5         
 
 
 POP_SIZE=25             #manually change this
@@ -170,7 +170,7 @@ run_data = {'Ending local time' : end_local_time,
             'Runtime' : ex_time,
             'N_generations' : N_GEN,
             'Pop_size' : POP_SIZE,
-            'Enemy': [ENEMY],
+            'Enemy': ENEMY,
             'Lambda': LAMBDA
             }
 

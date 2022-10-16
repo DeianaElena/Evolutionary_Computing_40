@@ -17,11 +17,12 @@ if not os.path.exists(experiment_name):
 n_hidden_neurons = 10
 
 # sol = np.loadtxt('best_weights_fixed.txt')
-sol = np.loadtxt('results_best_selection/Elena_tests/pop25lam150gen30e78t277_BEST/test[7, 8]_best_weights.txt')              #testing with best results
+# sol = np.loadtxt('results_best_selection/Elena_tests/pop25lam150gen30e78t277_BEST/test[7, 8]_best_weights.txt')              #testing with best results
 # sol = np.loadtxt('results_best_selection/Elena_tests/pop25lam150gen30e46t260_BEST/test[4, 6]_best_weights.txt')              #testing with our results
 
+
+sol = np.loadtxt('results_tournament_selection/pop25_lam150_gen30_78_BEST/test[7, 8]_best_weights.txt')              #testing with our results
 # sol = np.loadtxt('results_tournament_selection/pop25_lam150_gen30_46_BEST/test[4, 6]_best_weights.txt')              #testing with our results
-# sol = np.loadtxt('results_tournament_selection/pop25_lam150_gen30_78_BEST/test[7, 8]_best_weights.txt')              #testing with our results
 
 
 
@@ -39,7 +40,7 @@ env = Environment(experiment_name=experiment_name,
 				  level=2)
 
 
-
+list_res=[]
 # tests saved demo solutions for each enemy
 for en in range(1, 9):
 
@@ -47,11 +48,12 @@ for en in range(1, 9):
     env.update_parameter('enemies',[en])
 
     results = env.play(sol)
-
+    list_res.append(results[1] - results[2])
     print(results[1] - results[2])
     avg_gain = (results[1] - results[2])/8
 
 print("Average_Gain", avg_gain)
 print('\n  \n')
+print(list_res)
 
 # %%

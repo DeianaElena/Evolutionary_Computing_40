@@ -30,12 +30,11 @@ INPUTS = 20
 OUTPUTS = 5
 
 # editable parameters
+CXPB = 0.4         
+MUTPB = 0.5 
 
-POP_SIZE = 50
-LAMBDA = 65
-
-POP_SIZE = 40
-LAMBDA = 160
+POP_SIZE = 25
+LAMBDA = 150
 N_GEN = 30
 
 # testing enemies:
